@@ -7,7 +7,7 @@
 
 void V2Potentiometer::measure(float analog) {
   struct {
-    float fraction;
+    float    fraction;
     uint16_t step;
   } now;
 
@@ -32,7 +32,7 @@ void V2Potentiometer::measure(float analog) {
     now.fraction = (_history.analog - config->min) / (config->max - config->min);
 
     // The new measurement is inside the lag, don't update the step value.
-    if (fabs(now.fraction - _history.lag) < config->lag)
+    if (std::fabs(now.fraction - _history.lag) < config->lag)
       return;
 
     now.step = roundf(now.fraction * (float)(config->nSteps - 1));
